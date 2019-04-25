@@ -3,8 +3,7 @@
  * All the functions I used are decently explained by MocoLUFA's
  * documentation if you're not sure what they do.
  */
-
-
+ 
 #include <MIDI.h>
 #include <Adafruit_MCP4725.h>
 
@@ -19,7 +18,7 @@ MIDI_CREATE_DEFAULT_INSTANCE();
  * This creates an object that can be used to easily interface with 
  * Adafruit's breakout board DAC (although if you want, you
  * could just solder the chip somewhere yourself).
-*/
+ */
 Adafruit_MCP4725 dac0;
 uint16_t dac0V = 0;
 
@@ -38,12 +37,12 @@ void loop() {
 }
 
 /*
-This function handles all the programmer-forseen midi input situations, 
-and is called when midi data is in the serial buffer.
-It is not a completely robust solution -- if you want to process a MIDI event, 
-you'll have to account for it manually.
-The advantage is that this offers great flexibility.
-*/
+ * This function handles all the programmer-forseen midi input situations, 
+ * and is called when midi data is in the serial buffer.
+ * It is not a completely robust solution -- if you want to process a MIDI event, 
+ * you'll have to account for it manually.
+ * The advantage is that this offers great flexibility.
+ */
 void midiInput(){
   if (MIDI.read()){
       midi::MidiType type = MIDI.getType();
@@ -54,10 +53,10 @@ void midiInput(){
             //pitchbend is placed first as it sends the most data while in use
             bendGlobal = MIDI.getData2()*128 + MIDI.getData1();
             /*
-            The following calculation may need to be time optimized, as the Arduino isn't
-            particularly powerful and Pitchbend data can come in
-            quite fast. It seemed to work fine for me, though.
-            */
+             * The following calculation may need to be time optimized, as the Arduino isn't
+             * particularly powerful and Pitchbend data can come in
+             * quite fast. It seemed to work fine for me, though.
+             */
             int16_t tempBend = floor((((float)bendGlobal - 8192)/4096)*68.267); 
             dac0.setVoltage(dac0V + tempBend, false);
             midiChange = true;
@@ -69,11 +68,11 @@ void midiInput(){
             note = MIDI.getData1();
 
             /*
-            This array allows up to sixteen notes to be held in memory, meaning that if you hold one note,
-            press another one and let it go, the CV will return back to the first note if it is still held.
-            I'm not sure what happens when seventeen notes are pressed, but it never seemed to crash for me.
-            You can obviously guard against this but I didn't care.
-            */
+             * This array allows up to sixteen notes to be held in memory, meaning that if you hold one note,
+             * press another one and let it go, the CV will return back to the first note if it is still held.
+             * I'm not sure what happens when seventeen notes are pressed, but it never seemed to crash for me.
+             * You can obviously guard against this but I didn't care.
+             */
             noteArray[noteArraySize] = note;
             noteArraySize++;
 
@@ -117,10 +116,10 @@ void midiInput(){
       case midi::ControlChange:
         {
           /*
-          CC messages have the CC number in the first data byte and the value in the second,
-          so first we have to see which CC it is. You can of course use a switch statement
-          in here as well, but I didn't have many CCs that I was looking for.
-          */
+           * CC messages have the CC number in the first data byte and the value in the second,
+           * so first we have to see which CC it is. You can of course use a switch statement
+           * in here as well, but I didn't have many CCs that I was looking for.
+           */
           if (MIDI.getData1() == 1){
             modGlobal = MIDI.getData2();
             
