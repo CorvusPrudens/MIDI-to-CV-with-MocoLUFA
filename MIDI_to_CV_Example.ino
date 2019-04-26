@@ -15,10 +15,19 @@
  * https://www.adafruit.com/product/935
  * A little spendy, but they also provide an easy to use 
  * library so I don't really mind.
+ * 
+ * Me:
+ * https://www.reddit.com/user/Corvus_Prudens
+ * 
+ * Also my SoundCloud cause why not ;)
+ * https://soundcloud.com/corvusp
  */
  
 #include <MIDI.h>
 #include <Adafruit_MCP4725.h>
+//I forgot if this is a dependancy or not.
+//You probably don't need to keep it.
+#include <wiring_private.h>
 
 uint8_t noteArray[16];
 uint8_t noteArraySize = 0;
