@@ -39,10 +39,13 @@ uint16_t dac0V = 0;
 //14 bit range translates to no pitch modulation.
 int16_t bendGlobal = 8192;
 
-//This variable determines how many semitones the pitchbend
-//will go in either direction. It tends to be two, so I've
-//done that here. You could change this with any arbitrary
-//MIDI CC, for example, to allow for more flexible performance.
+/*
+ * 
+ * This variable determines how many semitones the pitchbend
+ * will go in either direction. It tends to be two, so I've
+ * done that here. You could change this with any arbitrary
+ * MIDI CC, for example, to allow for more flexible performance.
+ */
 uint8_t pitchBendSemitones = 2;
 
 void setup() {
