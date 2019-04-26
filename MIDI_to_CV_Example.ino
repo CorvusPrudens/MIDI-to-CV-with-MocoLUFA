@@ -1,7 +1,20 @@
 /*
  * Comments in this document always refer to the line underneath.
- * All the functions I used are decently explained by MocoLUFA's
- * documentation if you're not sure what they do.
+ * The functions used here come from the Arduino MIDI Library,
+ * and are delivered via the drivers of MocoLUFA. The documentation
+ * and some examples can be found here:
+ * http://fortyseveneffects.github.io/arduino_midi_library/index.html
+ * 
+ * Additionally, the bootloader that allows for easy development 
+ * and testing can be found here:
+ * https://github.com/kuwatay/mocolufa
+ * You'll need to follow the instructions on flashing the
+ * bootloader for this to work with USB.
+ * 
+ * Here's the board I used from Adafruit:
+ * https://www.adafruit.com/product/935
+ * A little spendy, but they also provide an easy to use 
+ * library so I don't really mind.
  */
  
 #include <MIDI.h>
@@ -12,7 +25,7 @@ uint8_t noteArraySize = 0;
 //By default, middle C is the MIDI note at startup
 uint8_t note = 60;
 
-//This initializes MocoLUFA's MIDI process
+//This initializes the MIDI process
 MIDI_CREATE_DEFAULT_INSTANCE();
 /*
  * This creates an object that can be used to easily interface with 
