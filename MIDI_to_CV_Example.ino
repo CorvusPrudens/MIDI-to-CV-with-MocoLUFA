@@ -19,8 +19,10 @@
  * Me:
  * https://www.reddit.com/user/Corvus_Prudens
  * 
- * Also my SoundCloud cause why not ;)
- * https://soundcloud.com/corvusp
+ * Here's a track I made purely with a synth controlled by 
+ * this very codebase, showing off some of its neat 
+ * pitchbend capabilities:
+ * https://soundcloud.com/corvusp/big
  */
  
 #include <MIDI.h>
