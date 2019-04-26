@@ -39,6 +39,12 @@ uint16_t dac0V = 0;
 //14 bit range translates to no pitch modulation.
 int16_t bendGlobal = 8192;
 
+//This variable determines how many semitones the pitchbend
+//will go in either direction. It tends to be two, so I've
+//done that here. You could change this with any arbitrary
+//MIDI CC, for example, to allow for more flexible performance.
+uint8_t pitchBendSemitones = 2;
+
 void setup() {
   MIDI.begin(MIDI_CHANNEL_OMNI);
   MIDI.turnThruOff();
@@ -69,8 +75,12 @@ void midiInput(){
              * The following calculation may need to be time optimized, as the Arduino isn't
              * particularly powerful and Pitchbend data can come in
              * quite fast. It seemed to work fine for me, though.
+             * 
+             * 68.267 comes from 4096/60, where 4096 is the range of 12 bit values
+             * for the DAC and 60 is 5 octaves of notes, derived from 0 to 5v at 1v/octave.
+             * I cast these values to floats for safety. I'm not a professional so don't judge me.
              */
-            int16_t tempBend = floor((((float)bendGlobal - 8192)/4096)*68.267); 
+            int16_t tempBend = floor((((float)bendGlobal - 8192)/((float)pitchBendSemitones*2048))*68.267); 
             dac0.setVoltage(dac0V + tempBend, false);
             midiChange = true;
           }
